@@ -8,11 +8,9 @@ export class HttpService {
     this.getOneTask();
   };
   getTasks(){
-    let tempObservable = this._http.get('/api/tasks');
-    tempObservable.subscribe(data => console.log("Got our tasks", data));
+    return this._http.get('/api/tasks');
   }
   getOneTask(){
-  let tempObservable = this._http.get('/api/tasks/:id');
-  tempObservable.subscribe(data => console.log("Got the task", data));
-}
+    return this._http.get('/api/tasks/:id');
+  }
 }
