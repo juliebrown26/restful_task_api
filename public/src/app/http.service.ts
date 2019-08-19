@@ -5,12 +5,14 @@ import { HttpClient } from '@angular/common/http';
 export class HttpService {
   constructor(private _http: HttpClient) {
     this.getTasks();
-    this.getOneTask();
   };
   getTasks(){
     return this._http.get('/api/tasks');
   }
-  getOneTask(){
-    return this._http.get('/api/tasks/:id');
+  getOneTask(_id: string){
+    return this._http.get(`/api/tasks/${_id}`);
   }
+  // postToServer(num){
+  //   return this._http.post('/api/tasks', num);
+  // }
 }

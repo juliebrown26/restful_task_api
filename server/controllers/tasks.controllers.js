@@ -9,7 +9,7 @@ exports.showAll = (req, res) => {
 
 exports.showOne = (req, res) => {
     console.log("showing one task");
-    Task.findOne({title: req.params.title})
+    Task.findOne({_id: req.params.id})
     .then(task => res.json(task))
     .catch(err => res.json(err))
 }
