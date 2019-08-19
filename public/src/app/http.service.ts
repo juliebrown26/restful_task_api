@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Task } from './task';
 
 @Injectable()
 export class HttpService {
@@ -12,7 +13,10 @@ export class HttpService {
   getOneTask(_id: string){
     return this._http.get(`/api/tasks/${_id}`);
   }
-  // postToServer(num){
-  //   return this._http.post('/api/tasks', num);
-  // }
+  addTask(newTask){
+    return this._http.post<Task>('/api/tasks', newTask)
+  }
+  updateTask(task: Task){
+    return this._http.put(`/api/task/${task._id}`, task)
+  }
 }

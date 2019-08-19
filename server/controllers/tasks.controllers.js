@@ -16,19 +16,18 @@ exports.showOne = (req, res) => {
 
 exports.newTask = (req, res) => {
     console.log("creating new task");
-    const task = new Task();
-    task.title = req.params.title;
+    const task = new Task(req.body);
     task.save()
-        .then(tasks => res.redirect('/api/tasks'))
+        .then(task => res.json(task))
         .catch(err => res.json(err))
 }
 
 exports.removeTask = (req, res) => {
     console.log("removing a task");
-    Task.findOne({title: req.params.title}) 
+    Task.findOne({_id: req.body._id}, req.body) 
     .then(task => {
-        Task.remove({title: req.params.title})
-            .then(title => res.redirect('/api/tasks'))
+        Task.remove({_id: req.body._id})
+            .then(task => res.json(task))
             .catch(err => res.json(err))
     .catch(err => res.json(err))
     })
@@ -36,13 +35,7 @@ exports.removeTask = (req, res) => {
 
 exports.updateTask = (req, res) => {
     console.log("updating a task");
-    Task.findOne({title: req.params.title})
-    .then(task => {
-        task.title = req.params.title;
-        task.description = req.params.description;
-        task.completed = req.params.completed;
-        return task.save();
-    })
-    .then(saveResult => res.json(saveResult))
+    Task.findOneAndUpdate({_id: req.body._id}, req.body, {new: true})
+    .then(task => res.json(task))
     .catch(err => res.json(err));
 }

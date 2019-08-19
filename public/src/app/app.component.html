@@ -1,26 +1,37 @@
-<div style="text-align:center">
-  <h1>
-    {{ title }}
-  </h1>
-</div>
-<div container>
-  <h2>
-    <button (click)="getTasks()">Get All Tasks</button>
-  </h2>
-  <div *ngIf="allClick">
-    <div *ngFor="let task of tasks">
-      <ul>
-        <li>
-          {{ task.title }} <button (click)="getOneTask(task)">Show</button>
-        </li>
-      </ul>
+<div class="container" style="border: 3px solid goldenrod; font-family: sans-serif">
+  <div style="text-align: center;">
+    <h1>
+      {{ title }}
+    </h1>
+  </div>
+  <div class="gettasks" style="text-align: center; border: 3px solid blue; margin: 10px">
+    <h2>
+      <button (click)="getTasks()">Get All Tasks</button>
+    </h2>
+    <div *ngIf="allClick">
+        <div *ngFor="let task of tasks">
+            <p>
+              {{ task.title }} <button (click)="getOneTask(task)">Show</button>
+            </p>
+        </div>
     </div>
   </div>
-  <div style="border: 1px solid black" *ngIf="showOne">
-    <h3>{{ oneTask.title }}</h3>
-    <ul>
-      <li>{{ oneTask.description }}</li>
-      <li>{{ oneTask.completed }}</li>
-    </ul>
+  <div style="border: 3px solid green; margin: 10px; text-align: center" *ngIf="showOne">
+      <h2>{{ oneTask.title }}</h2>
+        <p>Description: {{ oneTask.description }}</p>
+        <p>Completed: {{ oneTask.completed }}</p>
+  </div>
+  <div style="border: 3px solid purple; margin: 10px; padding-bottom: 10px; text-align: center">
+    <h2>Add a Task</h2>
+    <form (submit)="onSubmit()" class="postForm">
+      <p>{{newTask | json }}</p>
+      <label>Task title:
+        <input type="text" name="newTask.title" [(ngModel)]="newTask.title">
+      </label>
+      <label>Task Description:
+        <input type="text" name="newTask.description" [(ngModel)]="newTask.description">
+      </label>
+      <input type="submit" value="Create Task">
+    </form>
   </div>
 </div>
