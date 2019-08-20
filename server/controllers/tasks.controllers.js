@@ -24,7 +24,8 @@ exports.newTask = (req, res) => {
 
 exports.removeTask = (req, res) => {
     console.log("removing a task");
-    Task.deleteOne({_id: req.body._id}, req.body)
+    console.log(req.body)
+    Task.deleteOne({_id: req.params.id})
         .then(task => res.json(task))
         .catch(err => res.json(err))
 }
