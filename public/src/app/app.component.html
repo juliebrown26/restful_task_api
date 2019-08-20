@@ -16,22 +16,5 @@
         </div>
     </div>
   </div>
-  <div style="border: 3px solid green; margin: 10px; text-align: center" *ngIf="showOne">
-      <h2>{{ oneTask.title }}</h2>
-        <p>Description: {{ oneTask.description }}</p>
-        <p>Completed: {{ oneTask.completed }}</p>
-  </div>
-  <div style="border: 3px solid purple; margin: 10px; padding-bottom: 10px; text-align: center">
-    <h2>Add a Task</h2>
-    <form (submit)="onSubmit()" class="postForm">
-      <p>{{newTask | json }}</p>
-      <label>Task title:
-        <input type="text" name="newTask.title" [(ngModel)]="newTask.title">
-      </label>
-      <label>Task Description:
-        <input type="text" name="newTask.description" [(ngModel)]="newTask.description">
-      </label>
-      <input type="submit" value="Create Task">
-    </form>
-  </div>
+  <app-task *ngIf='showOne' [getOneTask]='oneTask'></app-task>
 </div>
