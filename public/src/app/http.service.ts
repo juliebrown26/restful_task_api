@@ -17,6 +17,9 @@ export class HttpService {
     return this._http.post<Task>('/api/tasks', newTask)
   }
   updateTask(task: Task){
-    return this._http.put(`/api/task/${task._id}`, task)
+    return this._http.put(`/api/tasks/${task._id}`, task)
+  }
+  removeTask(task: Task){
+    return this._http.delete(`/api/tasks/${task._id}`)
   }
 }

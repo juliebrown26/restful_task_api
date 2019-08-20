@@ -1,37 +1,87 @@
-<div class="container" style="border: 3px solid goldenrod; font-family: sans-serif">
-  <div style="text-align: center;">
-    <h1>
-      {{ title }}
-    </h1>
-  </div>
-  <div class="gettasks" style="text-align: center; border: 3px solid blue; margin: 10px">
-    <h2>
-      <button (click)="getTasks()">Get All Tasks</button>
-    </h2>
-    <div *ngIf="allClick">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Restful Task API</title>
+  </head>
+  <body>
+    <div
+      class="container"
+      style="border: 3px solid goldenrod; font-family: sans-serif"
+    >
+      <div>
+        <h1>
+          {{ title }}
+        </h1>
+      </div>
+      <div>
+        <h2>New Task</h2>
+        <form (submit)="onSubmit()" class="postForm">
+          <label
+            >Task Title:
+            <input
+              type="text"
+              name="newTask.title"
+              [(ngModel)]="newTask.title"
+            /> </label
+          ><br />
+          <label
+            >Task Description:
+            <input
+              type="text"
+              name="newTask.description"
+              [(ngModel)]="newTask.description"
+            />
+          </label>
+          <input type="submit" value="Create" />
+        </form>
+      </div>
+      <div
+        class="gettasks"
+        style="border: 3px solid blue; margin: 10px"
+      >
+        <h2>
+          Task List
+        </h2>
         <div *ngFor="let task of tasks">
+          <div
+            style="border: 2px solid black; width: 300px; margin: 5px; display: inline-block"
+          >
+            <h4>
+              {{ task.title }}
+              <button (click)="onUpdateClick(task)">Edit</button>
+            </h4>
             <p>
-              {{ task.title }} <button (click)="getOneTask(task)">Show</button>
+              {{ task.description }}
+              <button (click)="onRemove(task)">Delete</button>
             </p>
+          </div>
         </div>
+        <div
+          *ngIf="task"
+          style="display: inline-block; border: 2px solid black; width: 300px"
+        >
+          <form (submit)="onUpdate(task)">
+            <label
+              >Task title:
+              <input
+                type="text"
+                name="task.title"
+                [(ngModel)]="task.title"
+              /> </label
+            ><br />
+            <label
+              >Task Description:
+              <input
+                type="text"
+                name="task.description"
+                [(ngModel)]="task.description"
+              />
+            </label>
+            <input type="submit" value="Update" />
+          </form>
+        </div>
+      </div>
     </div>
-  </div>
-  <div style="border: 3px solid green; margin: 10px; text-align: center" *ngIf="showOne">
-      <h2>{{ oneTask.title }}</h2>
-        <p>Description: {{ oneTask.description }}</p>
-        <p>Completed: {{ oneTask.completed }}</p>
-  </div>
-  <div style="border: 3px solid purple; margin: 10px; padding-bottom: 10px; text-align: center">
-    <h2>Add a Task</h2>
-    <form (submit)="onSubmit()" class="postForm">
-      <p>{{newTask | json }}</p>
-      <label>Task title:
-        <input type="text" name="newTask.title" [(ngModel)]="newTask.title">
-      </label>
-      <label>Task Description:
-        <input type="text" name="newTask.description" [(ngModel)]="newTask.description">
-      </label>
-      <input type="submit" value="Create Task">
-    </form>
-  </div>
-</div>
+  </body>
+</html>

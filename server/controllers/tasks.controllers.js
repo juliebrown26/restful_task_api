@@ -24,13 +24,9 @@ exports.newTask = (req, res) => {
 
 exports.removeTask = (req, res) => {
     console.log("removing a task");
-    Task.findOne({_id: req.body._id}, req.body) 
-    .then(task => {
-        Task.remove({_id: req.body._id})
-            .then(task => res.json(task))
-            .catch(err => res.json(err))
-    .catch(err => res.json(err))
-    })
+    Task.deleteOne({_id: req.body._id}, req.body)
+        .then(task => res.json(task))
+        .catch(err => res.json(err))
 }
 
 exports.updateTask = (req, res) => {
